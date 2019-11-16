@@ -1,0 +1,25 @@
+Tries Vs HashMaps
+
+COMPLEXITY for adding,searching,deleting in HashMaps
+Adding -> O(word length)
+Searching -> O(word length)
+Deleting -> O(word Lenght)
+
+COMPLEXITY for adding,searching,deleting in Trie
+Adding-> O(word length)
+because we go deep down till the word ends
+Searching-> O(word length)
+Deleting -> O(word length)
+
+even though TC is same, but practically Tries performs better beacuse we dont have to find hashcode
+
+But SPACE wise.. Tries>>>>HashMaps
+suppose.. we have words starting with A are 10000... we would only have one A.. and rest will be connected to it
+
+but in case of hashmaps.. there will be different
+
+**********  TRIES can be used in ***************
+**displaying SUGGESTIONS while typing! //AUTO COMPLETE
+**SPELL CHECKER
+**T9 dictionary 
+**Pattern Matching
