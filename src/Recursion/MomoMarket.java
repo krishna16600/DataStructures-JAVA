@@ -24,13 +24,13 @@ public class MomoMarket {
 	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int numOfShops = sc.nextInt();
-		long[] arr = new long[numOfShops];
+		int numOfShop = sc.nextInt();
+		long[] arr = new long[numOfShop];
 		for(int i=0;i<arr.length;i++)
 		{
 			arr[i] = sc.nextLong();
 		}
-		long[] prefix = new long[numOfShops];
+		long[] prefix = new long[numOfShop];
 		prefix[0] = arr[0];
 		for(int i=1;i<arr.length;i++)
 		{
@@ -40,7 +40,7 @@ public class MomoMarket {
 		while(q-->0)
 		{
 			long x = sc.nextLong();
-			int s = getIndex(prefix,0,numOfShops-1,x);
+			int s = getIndex(prefix,0,numOfShop-1,x);
 			long val = x;
 			if(s!=-1)
 				val-=prefix[s];
