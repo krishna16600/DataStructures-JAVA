@@ -1,0 +1,69 @@
+
+import java.util.*;
+
+class Node{
+    int data;
+    Node left;
+    Node right;
+    
+    Node(int data){
+        this.data = data;
+    }
+}
+public class Main
+{
+    
+    static Node helper(int[] arr,int start, int end){
+        if(start > end)
+            return null;
+        
+        if(start==end)
+            return new Node(arr[start]);
+            
+        Node root = new Node(arr[start]);
+
+        int pivot = -100;
+        
+        for(int i=start+1;i<=end;i++){
+            if(arr[i] > root.data){
+                pivot = i;
+                break;
+            }
+        }
+        if(pivot==-100){
+            return root;
+        }
+        
+        root.left = helper(arr,start+1,pivot-1);
+        root.right = helper(arr,pivot,end);
+        
+        return root;
+    }
+    static   Node makeTree(int[] arr){
+        if(arr.length==1)
+            return new Node(arr[0]);
+            
+        return helper(arr,0,arr.length-1);
+    }
+    
+    static void inorder(Node root){
+        if(root==null)
+            return;
+            
+        System.out.print(root.data+" ");
+        inorder(root.left);
+        inorder(root.right);
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    int n = sc.nextInt();
+	    
+	    int[] arr = new int[n];
+	    
+	    for(int i=0;i<n;i++)
+	        arr[i] = sc.nextInt();
+	        
+	   Node root = makeTree(arr);
+	   inorder(root);
+	}
+}
