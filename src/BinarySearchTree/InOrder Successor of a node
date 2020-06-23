@@ -1,0 +1,53 @@
+Node find(Node root, int key){
+  if(root==null || root.data == key)
+    return root;
+    
+    if(key < root.data)
+      return find(root.left,key);
+    
+      return find(root.right,key);
+ }
+
+Node findMin(Node root){
+    if(root==null)
+      return null;
+      
+  while(root.left!=null){
+      root = root.left;
+    }
+ return root;
+} 
+Node findInorder(Node root,int key){
+  
+  //find the key in the whole tree first of all
+  
+  Node current = find(root,key);
+  if(current==null)
+    return null;
+   
+   //case 1 if current has right subtree, then leftmost node in its right subtree will be the inorder successor
+   
+   if(current.right!=null)
+    return findMin(current.right);
+   
+   else{
+   
+   //case 2 if there is no right subtree, then traverse till the current node from the root and find the deepeset ancestor for which the 
+   node will be in its left subtree
+   
+   Node successor = null;
+   Node ancestor = root;
+  
+  while(ancestor!=current){
+    if(current.data < ancestor.data){
+      successor  = ancestor;
+      ancesstor = ancesstor.left;
+    }
+    else{
+      ancestor = ancestor.right;
+    }  
+  }
+  return successor;
+}
+
+// TC => O(h)
