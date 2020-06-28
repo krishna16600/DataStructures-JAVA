@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class Main
+{
+    public static void dfs(int edge, boolean[] visited, Stack<Integer> st,ArrayList<ArrayList<Integer>> edges){
+        visited[edge] = true;
+        for(int i=0;i<edges.get(edge).size();i++){
+            if(!visited[edges.get(edge).get(i)])
+                dfs(edges.get(edge).get(i),visited,st,edges);
+        }
+        st.push(edge);
+    }
+    public static void toplogicalSort(ArrayList<ArrayList<Integer>> edges, int V){
+        boolean[] visited = new boolean[V];
+        
+        Stack<Integer> st = new Stack<>();
+        
+        for(int i=0;i<V;i++){
+            if(!visited[i])
+                dfs(i,visited,st,edges);
+                
+           
+        }
+         while(!st.isEmpty())
+            System.out.print(st.pop()+" ");
+    }
+	public static void main(String[] args) {
+    	Scanner sc = new Scanner(System.in);
+    	
+    	int V = sc.nextInt();
+    	int E = sc.nextInt();
+    	
+    	ArrayList<ArrayList<Integer>> edges = new ArrayList<ArrayList<Integer>>();
+    	
+    	for(int i=0;i<V;i++)
+    	    edges.add(new ArrayList<Integer>());
+        
+            for(int i=0;i<E;i++){
+                int src = sc.nextInt();
+                int dest = sc.nextInt();
+                
+                edges.get(src).add(dest);
+            }
+            
+            toplogicalSort(edges,V);
+    }
+}
