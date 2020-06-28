@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class Main
+{
+    public static void dfsH(int edge, boolean[] visited,ArrayList<ArrayList<Integer>> edges){
+        
+        if(visited[edge])
+            return;
+            
+        visited[edge] = true;
+        System.out.print(edge+" ");
+        
+        for(int i=0;i<edges.get(edge).size();i++){
+            if(!visited[edges.get(edge).get(i)])
+                dfsH(edges.get(edge).get(i) , visited, edges);
+        }
+       
+    }
+    public static void dfs(ArrayList<ArrayList<Integer>> edges, int V){
+        boolean[] visited = new boolean[V];
+        
+        for(int i=0;i<V;i++)
+            if(!visited[i])
+                dfsH(i,visited,edges);
+        
+    }
+	public static void main(String[] args) {
+    	Scanner sc = new Scanner(System.in);
+    	
+    	int V = sc.nextInt();
+    	int E = sc.nextInt();
+    	
+    	ArrayList<ArrayList<Integer>> edges = new ArrayList<ArrayList<Integer>>();
+    	
+    	for(int i=0;i<V;i++)
+    	    edges.add(new ArrayList<Integer>());
+        
+            for(int i=0;i<E;i++){
+                int src = sc.nextInt();
+                int dest = sc.nextInt();
+                
+                edges.get(src).add(dest);
+                edges.get(dest).add(src);
+            }
+            
+            dfs(edges,V);
+    }
+}
