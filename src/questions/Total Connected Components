@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class Main
+{
+    static void dfs(int edge,ArrayList<ArrayList<Integer>> edges , boolean[] visited){
+        visited[edge] = true;
+        System.out.print(edge+" ");
+        
+        for(int i=0;i<edges.get(edge).size();i++){
+            if(!visited[edges.get(edge).get(i)])
+                dfs(edges.get(edge).get(i),edges,visited);
+        }
+    }
+    static int find(ArrayList<ArrayList<Integer>> edges, int V){
+        boolean visited[] = new boolean[V];
+        
+        int count = 0;
+        
+        
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                count++;
+                dfs(i,edges,visited);
+                System.out.println();
+            }
+        }
+        return count;
+    }
+   
+	public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int V = sc.nextInt();
+        int E = sc.nextInt();
+        
+        ArrayList<ArrayList<Integer>> edges = new ArrayList<>();
+        
+        for(int i=0;i<V;i++)
+            edges.add(new ArrayList<Integer>());
+        
+        for(int i=0;i<E;i++){
+            System.out.println("Enter Edge a and b");
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            
+            edges.get(a).add(b);
+        }
+        
+        System.out.println("Total connected components are " + find(edges,V));
+	}
+}
