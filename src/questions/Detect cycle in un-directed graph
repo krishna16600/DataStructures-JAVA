@@ -1,0 +1,60 @@
+
+import java.util.*;
+public class Main
+{
+    public static boolean isCycle(int edge,  ArrayList<ArrayList<Integer>> edges, boolean[] visited, int parent){
+
+        //mark current vertex = true
+        visited[edge] = true;
+
+        for(int i=0; i<edges.get(edge).size();i++){
+            
+            //if the adjacent vertex is not visited, then call recursion on adjacent vertex
+            if(!visited[edges.get(edge).get(i)]){
+                if(isCycle(edges.get(edge).get(i) , edges , visited , edge))
+                    return true;
+            }
+            // if adjacent vertex is visited and still, a vertex tries to access it
+            //check if  an adjacent is visited and not parent of current 
+            // vertex, then there is a cycle. 
+            else if(edges.get(edge).get(i) != parent){
+                return true;
+            }
+        }
+       return false;
+    }
+    public static boolean findCycle(int v ,  ArrayList<ArrayList<Integer>> edges){
+        boolean[] visited = new boolean[v];
+        
+        for(int i=0;i<v;i++){
+            if(!visited[i]){
+                //initially parent of starting vertex will be -1
+                if(isCycle(i, edges , visited, -1))
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    
+	    int v = sc.nextInt();
+	    int e = sc.nextInt();
+	    ArrayList<ArrayList<Integer>> edges = new ArrayList<ArrayList<Integer>>();
+	    
+	    for(int i = 0 ; i < v ; i++){
+	        edges.add(new ArrayList<Integer>());
+	    }
+	    
+	    for(int i = 0; i<e;i++){
+	        int src = sc.nextInt();
+	        int dest = sc.nextInt();
+	        
+	        edges.get(src).add(dest);
+	        edges.get(dest).add(src);
+	    }
+	    
+	    System.out.println(findCycle(v, edges));
+	}
+}
