@@ -1,0 +1,65 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    public static boolean isCycle(int edge,  ArrayList<ArrayList<Integer>> edges, boolean[] visited){
+        
+        System.out.println(edge);
+        //if the vertex has already been visited in the current path and again we are reaching at the same vertex,
+        //it means we have a cycle in our graph.
+        if(visited[edge])
+            return true;
+            
+        //make the current vertex visited
+        visited[edge] = true;
+        for(int i=0;i<edges.get(edge).size();i++){
+            //traverse all the directed vertex of the current vertex and if while traversing we found an already visited 
+            //vertex being visited again, we hit base case and return.
+           
+            if(isCycle(edges.get(edge).get(i) , edges , visited))
+                return true;
+        }
+        
+        //if no condition matche, return false
+        return false;
+    }
+    public static boolean findCycle(int v ,  ArrayList<ArrayList<Integer>> edges){
+        boolean[] visited = new boolean[v];
+        
+        for(int i=0;i<v;i++){
+            visited[i] = true;
+            for(int j=0; j<edges.get(i).size();j++){
+                if(isCycle(edges.get(i).get(j),edges,visited))
+                    return true;
+            }
+            visited[i] = false;
+        }
+        return false;
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    
+	    int v = sc.nextInt();
+	    int e = sc.nextInt();
+	    ArrayList<ArrayList<Integer>> edges = new ArrayList<ArrayList<Integer>>();
+	    
+	    for(int i = 0 ; i < v ; i++){
+	        edges.add(new ArrayList<Integer>());
+	    }
+	    
+	    for(int i = 0; i<e;i++){
+	        int src = sc.nextInt();
+	        int dest = sc.nextInt();
+	        
+	        edges.get(src).add(dest);
+	    }
+	    
+	    System.out.println(findCycle(v, edges));
+	}
+}
