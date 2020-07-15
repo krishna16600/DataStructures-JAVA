@@ -1,0 +1,8 @@
+ public static void remove(List<String> list, String str){
+    ListIterator<String> it = new list.listiterator();
+    
+      while(!it.hasNext()){
+          if(it.next().equals(str))
+              it.remove();
+      }
+ }
